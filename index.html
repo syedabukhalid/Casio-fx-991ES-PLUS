@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#343440">
+  <meta name="description" content="A responsive, browser-based scientific calculator inspired by the Casio fx-991ES PLUS.">
+  <title>CASIO fx-991ES PLUS Scientific Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <div class="calculator-stage">
+      <section class="calculator" aria-label="fx-991ES PLUS scientific calculator">
+        <div class="top-cap" aria-hidden="true">
+          <div class="brand-stack">
+            <div class="brand-name">CASIO</div>
+            <div class="model-name">fx-991ES PLUS</div>
+            <div class="model-subtitle">NATURAL-V.P.A.M.</div>
+          </div>
+          <div class="solar-panel"><span></span><span></span><span></span><span></span></div>
+          <div class="solar-caption">TWO WAY POWER</div>
+        </div>
+
+        <section class="lcd" aria-label="Calculator display">
+          <div class="lcd-status" id="statusIndicators" aria-label="Calculator modes">
+            <span class="status-left" id="leftIndicators"></span>
+            <span class="status-angle" id="angleIndicator">D</span>
+            <span class="status-format" id="formatIndicator"></span>
+          </div>
+          <div class="expression-window" id="expressionWindow" aria-label="Current expression">
+            <span class="expression-before" id="expressionBefore"></span><span class="expression-cursor" id="expressionCursor" aria-hidden="true">▏</span><span class="expression-after" id="expressionAfter"></span>
+          </div>
+          <div class="result-row" id="resultDisplay" aria-live="polite" aria-atomic="true"></div>
+          <span class="sr-only" id="accessibleExpression"></span>
+        </section>
+
+        <section class="keypad" aria-label="Calculator keys">
+          <div class="utility-grid">
+            <button class="key utility-key shift-key" type="button" data-action="shift" aria-label="Shift function"><span class="sr-only">SHIFT</span></button>
+            <button class="key utility-key alpha-key" type="button" data-action="alpha" aria-label="Alpha function"><span class="sr-only">ALPHA</span></button>
+            <div class="replay-pad" role="group" aria-label="Cursor and replay controls">
+              <button class="replay-direction replay-up" type="button" data-action="cursor-up" aria-label="Previous expression">▲</button>
+              <button class="replay-direction replay-left" type="button" data-action="cursor-left" aria-label="Move cursor left">◀</button>
+              <span class="replay-center" aria-hidden="true">REPLAY</span>
+              <button class="replay-direction replay-right" type="button" data-action="cursor-right" aria-label="Move cursor right">▶</button>
+              <button class="replay-direction replay-down" type="button" data-action="cursor-down" aria-label="Next expression">▼</button>
+            </div>
+            <button class="key utility-key mode-key" type="button" data-action="mode" data-shift-action="setup" data-shift-label="SETUP" aria-label="Mode; Setup legend with Shift"><span class="key-main sr-only">MODE</span></button>
+            <button class="key utility-key on-key" type="button" data-action="on" aria-label="On and clear"><span class="sr-only">ON</span></button>
+          </div>
+
+          <div class="quick-grid" aria-label="Primary scientific functions">
+            <button class="key utility-key calc-key" type="button" data-action="calculate" aria-label="Calculate current expression; SOLVE legend with Shift"><span class="key-main">CALC</span></button>
+            <button class="key function-key" type="button" data-primary="÷" data-shift-action="toggle-result-format" data-shift-label="d/c" aria-label="Fraction or division; d/c with Shift"><span class="key-main fraction-face">a b/c</span></button>
+            <button class="key function-key" type="button" data-primary="√(" data-shift="∛(" data-shift-label="∛" aria-label="Square root or cube root with Shift"><span class="key-main">√</span></button>
+            <button class="key function-key" type="button" data-primary="^2" data-shift="^(" data-shift-label="xʸ" aria-label="Square or general power with Shift"><span class="key-main">x²</span></button>
+            <button class="key function-key" type="button" data-primary="^(-1)" data-shift="!" data-shift-label="x!" aria-label="Reciprocal or factorial with Shift"><span class="key-main">x⁻¹</span></button>
+            <button class="key function-key" type="button" data-primary="log(" data-shift="10^(" data-shift-label="10ˣ" aria-label="Common logarithm or ten to a power with Shift"><span class="key-main">log</span></button>
+            <button class="key function-key" type="button" data-primary="ln(" data-shift="e^(" data-shift-label="eˣ" aria-label="Natural logarithm or e to a power with Shift"><span class="key-main">ln</span></button>
+          </div>
+
+          <div class="scientific-grid" aria-label="Scientific and variable functions">
+            <button class="key function-key" type="button" data-primary="−" data-alpha="A" data-alpha-label="A" aria-label="Negative sign or variable A"><span class="key-main">(−)</span></button>
+            <button class="key function-key" type="button" data-primary="×π÷180" data-shift="×180÷π" data-shift-label="RAD↔DEG" data-alpha="B" data-alpha-label="B" aria-label="Angle conversion or variable B"><span class="key-main">° ′ ″</span></button>
+            <button class="key function-key" type="button" data-action="hyp" data-shift-action="insert-abs" data-shift-label="Abs" data-alpha="C" data-alpha-label="C" aria-label="Hyperbolic mode or variable C"><span class="key-main">hyp</span></button>
+            <button class="key function-key" type="button" data-primary="sin(" data-shift="sin⁻¹(" data-shift-label="sin⁻¹" data-alpha="D" data-alpha-label="D" data-trig="sin" aria-label="Sine, inverse sine, or variable D"><span class="key-main">sin</span></button>
+            <button class="key function-key" type="button" data-primary="cos(" data-shift="cos⁻¹(" data-shift-label="cos⁻¹" data-alpha="E" data-alpha-label="E" data-trig="cos" aria-label="Cosine, inverse cosine, or variable E"><span class="key-main">cos</span></button>
+            <button class="key function-key" type="button" data-primary="tan(" data-shift="tan⁻¹(" data-shift-label="tan⁻¹" data-alpha="F" data-alpha-label="F" data-trig="tan" aria-label="Tangent, inverse tangent, or variable F"><span class="key-main">tan</span></button>
+
+            <button class="key function-key" type="button" data-action="recall" data-shift-action="store" data-shift-label="STO" data-alpha="X" data-alpha-label="X" aria-label="Recall, store, or variable X"><span class="key-main">RCL</span></button>
+            <button class="key function-key" type="button" data-primary="×10^(" data-shift="×10^3" data-shift-label="×10³" data-alpha="Y" data-alpha-label="Y" aria-label="Engineering notation or variable Y"><span class="key-main">ENG</span></button>
+            <button class="key function-key" type="button" data-primary="(" aria-label="Open parenthesis"><span class="key-main">(</span></button>
+            <button class="key function-key" type="button" data-primary=")" aria-label="Close parenthesis"><span class="key-main">)</span></button>
+            <button class="key function-key" type="button" data-action="toggle-result-format" aria-label="Toggle decimal and fraction result"><span class="key-main">S⇔D</span></button>
+            <button class="key function-key" type="button" data-action="memory-add" data-shift-action="memory-subtract" data-shift-label="M−" data-alpha="M" data-alpha-label="M" aria-label="Add to memory, subtract from memory, or variable M"><span class="key-main">M+</span></button>
+          </div>
+
+          <div class="numeric-grid" aria-label="Number pad and arithmetic operators">
+            <button class="key number-key" type="button" data-primary="7" data-shift-label="CONST" aria-label="7; CONST with Shift"><span class="key-main">7</span></button>
+            <button class="key number-key" type="button" data-primary="8" data-shift-label="CONV" aria-label="8; CONV with Shift"><span class="key-main">8</span></button>
+            <button class="key number-key" type="button" data-primary="9" data-shift-label="CLR" aria-label="9; CLR with Shift"><span class="key-main">9</span></button>
+            <button class="key command-key delete-key" type="button" data-action="delete" data-shift-action="toggle-insert" data-shift-label="INS" aria-label="Delete previous character or toggle insert mode"><span class="key-main">DEL</span></button>
+            <button class="key command-key clear-key" type="button" data-action="clear" aria-label="All clear"><span class="key-main">AC</span></button>
+
+            <button class="key number-key" type="button" data-primary="4" data-shift-label="MATRIX" aria-label="4; MATRIX with Shift"><span class="key-main">4</span></button>
+            <button class="key number-key" type="button" data-primary="5" data-shift-label="VECTOR" aria-label="5; VECTOR with Shift"><span class="key-main">5</span></button>
+            <button class="key number-key" type="button" data-primary="6" aria-label="6"><span class="key-main">6</span></button>
+            <button class="key number-key operator-key" type="button" data-primary="×" data-shift-label="nPr" aria-label="Multiply; permutations with Shift"><span class="key-main">×</span></button>
+            <button class="key number-key operator-key" type="button" data-primary="÷" data-shift-label="nCr" aria-label="Divide; combinations with Shift"><span class="key-main">÷</span></button>
+
+            <button class="key number-key" type="button" data-primary="1" data-shift-label="STAT" aria-label="1; STAT with Shift"><span class="key-main">1</span></button>
+            <button class="key number-key" type="button" data-primary="2" data-shift-label="CMPLX" aria-label="2; CMPLX with Shift"><span class="key-main">2</span></button>
+            <button class="key number-key" type="button" data-primary="3" data-shift-label="BASE" aria-label="3; BASE with Shift"><span class="key-main">3</span></button>
+            <button class="key number-key operator-key" type="button" data-primary="+" data-shift-label="Pol" aria-label="Add; rectangular to polar conversion legend"><span class="key-main">+</span></button>
+            <button class="key number-key operator-key" type="button" data-primary="−" data-shift-label="Rec" aria-label="Subtract; polar to rectangular conversion legend"><span class="key-main">−</span></button>
+
+            <button class="key number-key" type="button" data-primary="0" data-shift-label="Rnd" aria-label="0; random with Shift"><span class="key-main">0</span></button>
+            <button class="key number-key" type="button" data-primary="." data-shift-label="Ran#" aria-label="Decimal point; random number with Shift"><span class="key-main">.</span></button>
+            <button class="key number-key" type="button" data-primary="×10^(" data-shift="π" data-shift-label="π" data-alpha="e" data-alpha-label="e" aria-label="Scientific notation exponent, pi with Shift, or Euler number with Alpha"><span class="key-main">×10ˣ</span></button>
+            <button class="key number-key" type="button" data-primary="Ans" data-shift-label="DRG▶" aria-label="Previous answer; angle conversion with Shift"><span class="key-main">Ans</span></button>
+            <button class="key number-key equals-key" type="button" data-action="calculate" aria-label="Equals"><span class="key-main">=</span></button>
+          </div>
+        </section>
+        <div class="bottom-markings" aria-hidden="true"><span>© NATURAL DISPLAY</span><span>2nd edition</span></div>
+      </section>
+    </div>
+    <p class="page-hint">Use the keys or keyboard. Enter calculates, Backspace deletes, Esc clears, and arrow keys move the cursor or recall history. You can also type function names such as sin, log, and pi.</p>
+  </main>
+  <noscript><p class="noscript-message">JavaScript must be enabled to use the calculator.</p></noscript>
+</body>
+</html>
